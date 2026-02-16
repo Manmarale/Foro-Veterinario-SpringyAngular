@@ -1,0 +1,45 @@
+<div class="container py-5">
+  
+    <div class="contenerdor-titulo-home mb-5">
+      <h1 class="fw-bold bungee-title">Temas</h1>
+    </div>
+
+    <div infiniteScroll (scrolled)="loadMoreTemas()">
+        <div class="row">
+            <div class="col-md-4 mb-4" *ngFor="let tema of temas">
+<!-- 
+                <mat-card >
+                  <div class= "mat-card-header">
+                      <div class="category-box">{{ tema.genero }}</div>
+                    
+                    <div class="avatar-img">
+                        <img class="img-redonda" [src]="tema.filePerfil! | apiImg" [alt]="tema.titulo">
+                    </div>
+                    <div class="text-container">
+                      <mat-card-title> <a [routerLink]="['/tema/', tema.id]"> {{ tema.titulo | slice: 0:20 }} ...</a> </mat-card-title>
+                      <mat-card-subtitle>{{ tema.usuarioNombre }}</mat-card-subtitle>
+                    </div>
+                  </div>
+          
+                  <mat-card-content>
+                    <p>
+                      {{ tema.mensaje | slice: 0: 45}}...
+                    </p>
+                  </mat-card-content>
+          
+                  <mat-card-actions>
+                    <button mat-button>
+                     <mat-icon>thumb_up</mat-icon> LIKE
+                    </button>
+                    <button mat-button>
+                      <mat-icon>chat</mat-icon> COMENTAR
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+-->          
+                <app-tema-card  [tema]="tema"></app-tema-card>
+
+              </div>
+        </div>
+    </div>
+</div>

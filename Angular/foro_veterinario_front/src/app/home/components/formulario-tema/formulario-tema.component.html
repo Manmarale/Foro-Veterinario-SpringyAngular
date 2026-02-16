@@ -1,0 +1,96 @@
+<div class="container" >
+    <div class="form-tema" *ngIf="form">
+
+        <h1 class="bungee-title">
+            {{ tema ? 'EDITAR' : 'NUEVO' }} TEMA
+        </h1>
+    
+        <div class="mt-5 alert alert-danger" *ngIf="errors.length">
+            <ul >
+                <li *ngFor="let error of errors"> {{ error }} </li>
+            </ul>
+        </div>
+    
+    
+        <form class="mt-5" [formGroup]="form" (ngSubmit)="save()" autocomplete="off">
+            <mat-form-field class="mb-3 w-100" appearance="outline">
+                <mat-label for="titulo">Título</mat-label>
+                <input matInput id="titulo" type="text" placeholder="Título" formControlName="titulo"> <!-- class="form-control"   -->
+                <mat-error class="invalid-feedback d-block">
+                    <ng-container *ngIf="controlHasError('titulo', 'required')">
+                        Titulo es obligatorio
+                    </ng-container>
+                    <ng-container *ngIf="controlHasError('titulo', 'minlength')">
+                        Titulo debe tener al menos 3 caracteres
+                    </ng-container>
+                    <ng-container *ngIf="controlHasError('titulo', 'maxlength')">
+                        Titulo puede tener 100 caracteres maximo
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="mb-3 w-100" appearance="outline">
+                <mat-label for="mensaje">Mensaje</mat-label>
+                <textarea matInput id="mensaje" type="text" placeholder="Mensaje" formControlName="mensaje" rows="8"></textarea>
+                <mat-error class="invalid-feedback d-block">
+                    <ng-container *ngIf="controlHasError('mensaje', 'required')">
+                        El Mensaje es obligatorio
+                    </ng-container>
+                    <ng-container *ngIf="controlHasError('mensaje','minlength')">
+                        El Mensaje debe tener al menos 5 caracteres
+                    </ng-container>
+                    <ng-container *ngIf="controlHasError('mensaje', 'maxlength')">
+                        El Mensaje puede tener 5000 caracteres maximo
+                    </ng-container>
+                    <ng-container *ngIf="controlHasError('mensaje', 'pattern')">
+                        El Mensaje no puede tener caracteres especiales como:  + = ; :  '' " " < >
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="mb-3 w-100" appearance="outline">
+                <mat-label for="genero">Categoría</mat-label>
+                <mat-select id="genero" type="text" placeholder="Seleccione categoría" formControlName="genero"> <!-- class="form-control"   se quita ya que usamos angular material-->
+                <mat-option value="CONSULTA_GENERAL">🐾 CONSULTA GENERAL</mat-option>
+                    <mat-option value="SALUD_ANIMAL">❤️ SALUD ANIMAL</mat-option>
+                    <mat-option value="NUTRICION">🥗 NUTRICIÓN</mat-option>
+                    <mat-option value="VACUNACION">💉 VACUNACIÓN</mat-option>
+                    <mat-option value="CIRUGIA">🏥 CIRUGÍA</mat-option>
+                    <mat-option value="DERMATOLOGIA">🔬 DERMATOLOGÍA</mat-option>
+                    <mat-option value="EMERGENCIAS">🚨 EMERGENCIAS</mat-option>
+                    <mat-option value="COMPORTAMIENTO">🧠 COMPORTAMIENTO</mat-option>
+                    <mat-option value="ADOPCION">🏠 ADOPCIÓN</mat-option>
+                    <mat-option value="CUIDADOS_BASICOS">🛁 CUIDADOS BÁSICOS</mat-option>
+                    <mat-option value="ENFERMEDADES_INFECCIOSAS">🦠 ENFERMEDADES INFECCIOSAS</mat-option>
+                    <mat-option value="PARASITOLOGIA">🪱 PARASITOLOGÍA</mat-option>
+                    <mat-option value="ODONTOLOGIA">🦷 ODONTOLOGÍA</mat-option>
+                    <mat-option value="OFTALMOLOGIA">👁️ OFTALMOLOGÍA</mat-option>
+                    <mat-option value="CARDIOLOGIA">💓 CARDIOLOGÍA</mat-option>
+                    <mat-option value="REPRODUCCION">🐣 REPRODUCCIÓN</mat-option>
+                    <mat-option value="ANIMALES_EXOTICOS">🦎 ANIMALES EXÓTICOS</mat-option>
+                    <mat-option value="EQUINOS">🐴 EQUINOS</mat-option>
+                    <mat-option value="BOVINOS">🐄 BOVINOS</mat-option>
+                    <mat-option value="FELINOS">🐱 FELINOS</mat-option>
+                    <mat-option value="CANINOS">🐶 CANINOS</mat-option>
+                    <mat-option value="AVES">🐦 AVES</mat-option>
+                    <mat-option value="LEGISLACION_ANIMAL">⚖️ LEGISLACIÓN ANIMAL</mat-option>
+                </mat-select>
+                <mat-error class="invalid-feedback d-block">
+                    <ng-container *ngIf="controlHasError('genero', 'required')">
+                        La categoria es obligatoria
+                    </ng-container>
+                </mat-error>
+            </mat-form-field>
+    
+            <div class="contenedor-buttons">
+                <button mat-raised-button class="custom-button-2" type="button" routerLink="/"> <!-- class="btn btn-light" -->
+                    CANCELAR
+                </button>
+                <button mat-raised-button class="custom-button"> <!--  class="btn btn-primary ms-2"  -->
+                    {{ tema ? 'ACTUALIZAR' : 'CREAR' }} TEMA
+                </button>
+            </div>
+        </form>
+    </div>
+    
+</div>

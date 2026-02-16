@@ -1,0 +1,111 @@
+<div class="container" >
+    <div class="form-usu-adm" *ngIf="form">
+        <div class="list-tema">
+            <h1 class="bungee-title">
+                {{ usuario ? 'EDITAR': 'NUEVO'}} USUARIO
+            </h1>
+        </div>
+        <div class="mt-5 alert alert-danger" *ngIf="errors.length">
+            <ul>
+                <li *ngFor="let error of errors"> {{ error }} </li>
+            </ul>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <form class="mt-5" [formGroup]="form" (ngSubmit)="save()" autocomplete="off">
+                    <mat-form-field class="mb-3 w-100" appearance="outline">
+                        <mat-label for="nombre">Nombre</mat-label>
+                        <input matInput id="nombre" type="text" placeholder="Nombre" formControlName="nombre"> <!-- class="form-control"   se quita ya que usamos angular material-->
+                        <mat-error class="invalid-feedback d-block">
+                            <ng-container *ngIf="controlHasError('nombre','required')">
+                                Nombre es obligatorio
+                            </ng-container>
+                            <ng-container *ngIf="controlHasError('nombre','minlength')">
+                                Nombre debe tener minimo 3 caracteres
+                            </ng-container>
+                            <ng-container *ngIf="controlHasError('nombre','maxlength')">
+                                Nombre puede tener maximo 45 caracteres
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="mb-3 w-100" appearance="outline">
+                        <mat-label for="email">Email</mat-label>
+                        <input matInput id="email" type="email" placeholder="email" formControlName="email">  <!-- class="form-control"   se quita ya que usamos angular material-->
+                        <mat-error class="invalid-feedback d-block">
+                            <ng-container *ngIf="controlHasError('email', 'required')">
+                                EL Email es obligatorio
+                            </ng-container>
+                            <ng-container *ngIf="controlHasError('email', 'email')">
+                                EL Email debe tener un formato valido
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="mb-3 w-100" appearance="outline">
+                        <mat-label for="password">Password</mat-label>
+                        <input matInput id="password" placeholder="Password" formControlName="password">  <!-- class="form-control"   se quita ya que usamos angular material-->
+                        <mat-error class="invalid-feedback d-block">
+                            <ng-container *ngIf="controlHasError('password','required')">
+                                El Password es obligatorio
+                            </ng-container>
+                            <ng-container *ngIf="controlHasError('password','minlength')">
+                                El Password debe tener minimo 5 caracteres
+                            </ng-container>
+                            <ng-container *ngIf="controlHasError('password','pattern')">
+                                El Password no puede tener caracteres diferentes a:  a-z 0-9 - +
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+            
+                    <mat-form-field class="mb-3 w-100" appearance="outline">
+                        <mat-label for="role">Role</mat-label>
+                        <mat-select id="role" type="text" placeholder="Seleccione Role" formControlName="role"> <!-- class="form-control"   se quita ya que usamos angular material-->
+                            <mat-option value="ADMIN">ADMIN</mat-option>
+                            <mat-option value="USER">USER</mat-option>
+                        </mat-select>
+                        <mat-error class="invalid-feedback d-block">
+                            <ng-container *ngIf="controlHasError('role', 'required')">
+                                El role es obligatorio
+                            </ng-container>
+                        </mat-error>
+                    </mat-form-field>
+
+                    <div class="mb-3">
+                        <label for="filePerfil">Imagen Perfil</label>
+                        <input id="filePerfil" type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="uploadFile($event,'filePerfil')">
+            
+                        <div class="small text-muted" *ngIf="form.controls['filePerfil'].value ">
+                            Ruta actual: {{ form.controls['filePerfil'].value }}
+                        </div>
+                        <mat-error class="small" *ngIf="controlHasError('filePerfil', 'required')">
+                            La imagen es obligatorio
+                        </mat-error>
+                    </div>
+            
+            
+                    <div class="contenedor-buttons">
+                        <button  type="button" mat-raised-button class="custom-button-adm-2" routerLink="/admin/usuarios">    <!-- class="btn btn-light" se elimina la clase de bootstrap -->
+                            Cancelar
+                        </button>
+                        <button class="ms-2" mat-raised-button class="custom-button-adm">  <!-- class="btn btn-primary ms-2" -->
+                            {{ usuario ? 'ACTUALIZAR': 'CREAR' }}  USUARIO
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4 text-center">
+                <div *ngIf="form.controls['filePerfil'].value; else noFilePerfilMessage">
+                    <div>Portada</div>
+                    <img [src]="form.controls['filePerfil'].value | apiImg" alt="" class="img-thumbnail"> <!-- 'http://localhost:8080/api/media/' +  -->
+                </div>
+                <ng-template #noFilePerfilMessage> 
+                    Sin portada
+                </ng-template>
+                
+            </div>
+        
+        </div>
+    </div>
+</div>

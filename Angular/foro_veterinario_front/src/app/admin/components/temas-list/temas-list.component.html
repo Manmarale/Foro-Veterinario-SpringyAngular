@@ -1,0 +1,101 @@
+<div class="contenedor-lista-tema">
+    <div class="list-tema">
+        <h1 class="bungee-title">Lista de temas</h1>
+    </div>
+    
+    <div class="contenedor-buttons mb-5">
+        <button mat-raised-button class="bungee-title custom-button-adm" routerLink="/admin/tema/new">
+            NUEVO TEMA
+        </button>
+    </div>
+        
+    <div *ngIf="temaPage" class="tabla-perso">
+            <table mat-table [dataSource]="temaPage.content"> ,<!-- class="table table-hover mt-5" -->
+                
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef class="text-center fw-bold colum-oculta">Id</th>
+                    <td mat-cell *matCellDef="let tema" class="colum-oculta">
+                        {{ tema.id }}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="mensaje">
+                    <th mat-header-cell *matHeaderCellDef class="text-center fw-bold">Tema</th>
+                    <td mat-cell *matCellDef="let tema">
+                        <div class="d-flex flex-column align-items-star">
+                            <div class="fw-bold mb-2">
+                                {{ tema.titulo }}
+                            </div>
+                            <div>
+                                {{ tema.mensaje }}
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="genero">
+                    <th mat-header-cell *matHeaderCellDef class="text-center colum-oculta fw-bold">Genero</th>
+                    <td mat-cell *matCellDef="let tema" class="colum-oculta">
+                        {{ tema.genero }}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef class="text-center colum-oculta fw-bold">Usuario </th>
+                    <td mat-cell *matCellDef="let tema" class="colum-oculta">
+                        <div class="d-flex ">
+                            <div class="fw-bold mb-2">
+                                {{ tema.usuarioId +"-"}}
+                            </div>
+                            <div>
+                                {{ tema.usuarioNombre }}
+                            </div>
+                        </div>
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="createdAt" > 
+                    <th mat-header-cell *matHeaderCellDef class="text-center colum-oculta fw-bold">Fecha</th>
+                    <td mat-cell *matCellDef="let tema" class="colum-oculta">
+                        {{ tema.createdAt | date: 'dd/MM/yyyy'}}
+                    </td>
+                </ng-container>
+                
+                <ng-container matColumnDef="activo">
+                    <th mat-header-cell *matHeaderCellDef class="text-center fw-bold">Estado</th>
+                    <td mat-cell *matCellDef="let tema">
+                        <div class="d-flex flex-column align-items-center">
+                            <mat-icon *ngIf="tema.activo" class="icon-verde" matTooltip="Tema activo">check_circle</mat-icon>
+                            <mat-icon *ngIf="!tema.activo" class="icon-rojo" matTooltip="Tema inactivo">cancel</mat-icon>
+                        </div>
+                    </td>
+                </ng-container>
+                
+                
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef class="text-center fw-bold">Acciones</th>
+                    <td mat-cell *matCellDef="let tema">
+                        <div class="icon-list">
+                            <button mat-icon-button [routerLink]="['/admin/tema/', tema.id, 'edit']" color="primary" matTooltip="Editar Tema">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button [routerLink]="['/admin/tema']" class="ms-2" (click)="deleteTema(tema)" color="warn" matTooltip="Eliminar Tema">
+                                <mat-icon>delete</mat-icon>
+                            </button> 
+                        </div>
+                    </td>
+                </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColums"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColums;"></tr>
+
+    </table>
+
+
+    <mat-paginator [length]="temaPage.totalElements" [pageSize]="temaPage.size" (page)="paginateTemas($event)" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Temas por pagina">
+    </mat-paginator>
+
+
+    </div>
+</div>

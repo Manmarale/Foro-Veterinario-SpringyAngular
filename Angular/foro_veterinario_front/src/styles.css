@@ -1,0 +1,595 @@
+
+@import 'swiper/swiper-bundle.min.css';
+
+
+
+
+.invalid-feedback {
+    display: block;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/*HEADER*/
+
+.img-logo {
+    width: 60px; 
+    /*height: 60px;*/   
+}
+
+.mw-96px {
+    max-width: 96px;
+    max-height: 96px;
+}
+
+.img-redonda-grande {
+    width: 96px; 
+    height: 96px; 
+    border-radius: 50%; 
+    object-fit: cover;  /* Esto asegura que la imagen se ajuste bien dentro del contenedor redondo */
+}
+
+.img-redonda {
+    width: 64px; 
+    height: 64px; 
+    border-radius: 50%; 
+    object-fit: cover;  /* Esto asegura que la imagen se ajuste bien dentro del contenedor redondo */
+}
+
+.icon-verde {
+    color: rgb(46, 139, 87);
+}
+
+.icon-rojo {
+    color: #F44336;
+}
+
+.icon-list{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center {
+  text-align: center;
+  justify-content: center;
+}
+
+
+.text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 10px;
+  }
+
+  .text-container a{
+    text-decoration: none;
+    color: #000000;
+  }
+
+  .mat-card-header {
+    position: relative;
+    display: flex;
+    
+    padding: 5px;
+    width: 100%;
+  }
+
+  .category-box {
+    position: absolute;
+    top: -20px;
+    right: 10px;
+  
+    background-color: #4CAF50; /* Verde categoría */
+   
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+
+.container-card{
+    width: 100%;
+    margin: 10px;
+    height: 100vh;
+    align-content: center;
+}
+
+.card-respuesta{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+
+.custom-mat-card{
+    width: 100%; /* Ajusta el ancho al 100% del contenedor */
+    height: max-content; /* Ajusta la altura automáticamente */
+    padding: 20px; /* Espaciado interno */  
+}
+
+.custom-mat-card .mat-card-header {
+    display: flex;
+    align-items: center;
+}
+
+.custom-mat-card .avatar-img img {
+    width: 150px; /* Ajusta el tamaño del avatar */
+    height: 150px; /* Ajusta el tamaño del avatar */
+    border-radius: 50%; /* Hace la imagen redonda */
+    margin-right: 10px; /* Espaciado a la derecha de la imagen */
+}
+
+.custom-mat-card .text-container {
+    flex: 1; /* Permite que el contenedor de texto ocupe el espacio restante */
+}
+
+.custom-mat-card .category-box {
+    top: -30px;
+    font-size: 15px;
+}
+
+.card-formulario-respuesta{
+    background-color: #4CAF50;
+    border-radius: 15px;
+    margin-left: 10px;
+    padding: 20px;
+    width: 100%;
+}
+
+.card-titulo{
+  display: flex;
+  justify-content: center;
+}
+
+.card-fondo-formulario-respuesta textarea{
+    border-radius: 10px;
+    border-color:#388E3C;
+    height: auto; 
+}
+
+.card-respuesta-tema{
+    margin-top: 10px;
+}
+
+.card-cliente-respuestas .card-respuesta-tema {
+    background-color:transparent;
+    border: 1px solid #4CAF50;
+    display: flex;
+}
+
+.card-actions{
+    padding: none;
+}
+
+
+
+.banner {
+    background: url('./assets/banner.jpeg') center no-repeat;
+    min-height: 500px;
+    background-size: cover; /* Ajusta la imagen para que cubra todo el ancho y alto del contenedor */
+    position: relative;
+    z-index: -2;
+}
+
+
+
+.overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.text {
+    text-align: right;
+    color: rgb(0, 0, 0);
+    padding: 3rem;
+    padding: 3rem; 
+}
+
+.text .title {
+    font-size: 8rem;
+    color: #2E8B57;
+}
+
+.text .subtitle {
+    margin-top: 1rem;
+    font-size: 120%;
+    display: inline-block;
+}
+
+.bungee-title {
+  font-family: 'Bungee', cursive;
+}
+
+/* LAYOUT HOME */
+
+.custom-toolbar {
+    background-color: #2E8B57; /* Verde veterinario */
+    color: white; /* Ajusta el color del texto si es necesario */
+}
+
+/* LAYOUT ADMIN */
+
+.custom-toolbar-adm {
+    background-color: #1B5E20; /* Verde oscuro admin */
+    color: white; /* Ajusta el color del texto si es necesario */
+}
+
+.custom-sidenav-adm {
+  width: 220px;
+  background-color: #1B5E20;
+  color: white;
+  padding: 0.2rem;
+}
+
+/* Texto de los enlaces */
+.toolbar-link span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+
+/* Barra */ 
+
+.barra-img {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    
+}
+
+.barra-img img {
+    display: flex;
+    width: 50px; /* Ajusta el tamaño del avatar */
+    height: 50px; /* Ajusta el tamaño del avatar */
+    border-radius: 50%; /* Hace la imagen redonda */
+}
+
+.barra-img span {
+    font-size: 1.2rem;
+    margin-left: 4px;
+}
+
+.img-redonda {
+    width: 64px; 
+    height: 64px; 
+    border-radius: 50%; 
+    object-fit: cover;  /* Esto asegura que la imagen se ajuste bien dentro del contenedor redondo */
+}
+
+
+.hover-shadow {
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .hover-shadow:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+  }
+
+  .liked {
+    color: #2E8B57; /* Verde veterinario */
+  }
+
+
+  /* BOTONES  */
+
+  .contenedor-buttons{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .custom-button {
+    background-color: #2E8B57 !important;
+    color: white !important;
+  }
+
+  .custom-button:hover {
+    background-color: white !important;
+    color: #2E8B57 !important;
+  }
+
+  .custom-button-adm {
+    background-color: #1B5E20  !important;
+    color: white !important;
+  }
+  .custom-button-adm-2 {
+      background-color: white !important;
+      color:  #1B5E20  !important; 
+      margin-right: 5px;
+    }
+  
+
+  .custom-button-adm:hover {
+    background-color: white !important;
+    color: #1B5E20  !important;
+  }
+
+  .custom-button-2 {
+    background-color: white !important;
+    color:  #2E8B57 !important; 
+    margin-right: 5px;
+  }
+  
+  .custom-button-2:hover {
+    background-color:#2E8B57 !important; 
+    color: white !important;
+  }
+
+  .custom-a {
+    background-color: white !important;
+    color: #2E8B57 !important;
+    text-decoration: none;
+  }
+  
+  .custom-a:hover {
+    background-color:white !important; 
+    color:#1B5E20  !important;
+  }
+
+  /* HOME */
+
+  .contenerdor-titulo-home h1{
+    color: #2E8B57 ;
+  }
+
+  /*SLIDER HOME TEMAS */
+.swiper {
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* fundo slider */
+.slider-fondo{
+    background-color: rgba(46, 139, 87, 0.65);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    padding: auto;
+} 
+
+/* === Layout general del toolbar === */
+.toolbar-responsive {
+  display: flex;
+  justify-content: space-between; /* logo a la izq, hamburguesa a la der */
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.contenedor-buttons-layout{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-desktop .contenedor-buttons-layout .custom-button{
+  margin: 0;
+}
+
+.menu-desktop,
+.user-desktop,
+.auth-desktop,
+.barra-img {
+  display: flex;
+  align-items: center;
+}
+
+/*  Sidenav  */
+.sidenav-container {
+  height: 100%;
+}
+
+.custom-sidenav {
+  width: 220px;
+  background-color: #2E8B57 ;
+  color: white;
+  padding: 0.2rem;
+}
+
+.custom-sidenav button {
+  color: white !important;
+  width: 100%;
+  text-align: left;
+}
+
+.custom-sidenav-adm button {
+  color: white !important;
+  width: 100%;
+  text-align: left;
+}
+
+
+/* FORMULARIO TEMA */
+
+.form-tema{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* FORMULARIO USUARIO ADM */
+
+.form-usu-adm{
+  margin-top: 20px;
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-usu-adm h1{
+  color: #2E8B57;
+  font-size: 55px;
+}
+
+.form-tema h1{
+  color: #2E8B57;
+  font-size: 55px;
+}
+
+.list-tema h1{
+  color: #1B5E20 ;
+  font-size: 55px;
+}
+
+
+/* LISTADO TEMAS */
+
+.list-tema h1{
+  color: #1B5E20 ;
+  font-size: 55px;
+}
+
+.contenedor-lista-tema{
+  height: 100vh;
+  margin: 10px;
+}
+
+.list-usu-password{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-usu-password{
+    width: 35px;
+  }
+
+
+
+
+/* =============================
+    RESPONSIVE ADAPTATION
+============================= */
+
+/* Pantallas medianas (tablets) */
+
+
+@media (max-width: 992px) {
+  .text .title {
+    font-size: 4rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .user-name {
+    display: none;
+  }
+}
+
+/* Ocultar menú hamburguesa en desktop */
+@media (min-width: 768px) {
+  .menu-button {
+    display: none !important;
+  }
+}
+
+/* En móviles ocultar los botones de escritorio */
+@media (max-width: 767px) {
+  .menu-desktop,
+  .user-desktop,
+  .auth-desktop,
+  .barra-img {
+    display: none !important;
+  }
+
+  .menu-button {
+    display: inline-flex !important;
+    color: white;
+  }
+
+  .card-respuesta{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-formulario-respuesta{
+    margin: 0; 
+  }
+
+
+  /* Lista Temas */
+
+  .icon-list{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .colum-oculta{
+   display: none;
+  }
+
+  
+
+}
+
+/* Pantallas pequeñas (móviles) */
+@media (max-width: 576px) {
+  .text .title {
+    font-size: 2.5rem;
+  }
+
+   .footer p {
+    font-size: 0.75rem; /* reduce el tamaño */
+  }
+
+  .form-tema h1{
+    font-size: 45px;
+  }
+
+  /* Lista Temas */
+
+  .list-tema h1{
+    font-size: 40px;
+  }
+
+
+}
+
+@media (max-width: 360px) {
+  .custom-mat-card{
+    padding: 10px;   
+  }
+
+  .form-tema h1{
+    font-size: 40px;
+  }
+
+}
+
+
+
+
+
+
+

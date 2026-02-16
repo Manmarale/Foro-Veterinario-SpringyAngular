@@ -1,0 +1,27 @@
+# ==== IDE ====
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# ==== OS ====
+.DS_Store
+Thumbs.db
+
+# ==== Java / Maven ====
+Spring/foro_veterinario_back/target/
+*.class
+*.jar
+*.war
+
+# ==== Node / Angular ====
+Angular/foro_veterinario_front/node_modules/
+Angular/foro_veterinario_front/dist/
+Angular/foro_veterinario_front/.angular/
+
+# ==== Docker ====
+*.log
+
+# ==== Media ====
+Spring/foro_veterinario_back/mediafile/

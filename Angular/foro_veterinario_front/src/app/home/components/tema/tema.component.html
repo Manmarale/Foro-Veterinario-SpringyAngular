@@ -1,0 +1,119 @@
+<div class="container-card" *ngIf="tema">
+    <div class="card-respuesta">
+        <div class="col-md-6 pb-2">
+            <div class="card-cliente">
+
+                <mat-card class="custom-mat-card custom-mat-card hover-shadow">
+                    <div class="mat-card-header">
+                        <div class="category-box"> {{ tema.genero }} </div>
+
+                        <div class="avatar-img">
+                            <img class="img-redonda" [src]="tema.filePerfil! | apiImg" [alt]="tema.titulo">
+                        </div>
+                        <div class="text-container">
+                            <mat-card-title> {{tema.titulo}} </mat-card-title>
+                            <mat-card-subtitle> {{tema.usuarioNombre}}</mat-card-subtitle>
+                        </div>
+                        
+                        <div *ngIf="usuarioAutenticado && tema.usuarioId === authService.usuario?.id">
+                            <button mat-icon-button [routerLink]="['/tema/', tema.id, 'edit']" color="primary"
+                                matTooltip="Editar Tema">
+                                <mat-icon>edit</mat-icon>
+                            </button>
+                            <button mat-icon-button [routerLink]="['/tema']" class="ms-2" (click)="deleteTema(tema)"
+                                color="warn" matTooltip="Eliminar Tema">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+
+                    <mat-card-content>
+                        <p>
+                            {{ tema.mensaje }}
+                        </p>
+                    </mat-card-content>
+
+                    <mat-card-actions>
+                        <button mat-button (click)="toggleLike()">
+                            <mat-icon [class.liked]="liked" >thumb_up</mat-icon> LIKE
+                        </button>
+                        <button mat-button (click)="mostrarRespuestas()">
+                            <mat-icon >chat</mat-icon> RESPUESTAS
+                        </button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+
+            <div *ngIf="mostrarRespuestasState">
+                <div class="card-cliente-respuestas" *ngFor="let respuesta of tema.respuestas">
+                    <mat-card class="card-respuesta-tema hover-shadow">
+                        <div class="mat-card-header">
+
+                            <div class="avatar-img">
+                                <img class="img-redonda" [src]="respuesta.filePerfilRespuesta! | apiImg"
+                                    [alt]="respuesta.usuarioNombre">
+                            </div>
+
+                            <div class="text-container">
+                                <mat-card-subtitle class="fw-bold"> {{respuesta.usuarioNombre}}</mat-card-subtitle>
+                                <p>
+                                    {{ respuesta.mensajeRespuesta }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <mat-card-actions class="card-actions">
+                            <button mat-button>
+                                <mat-icon>thumb_up</mat-icon> LIKE
+                            </button>
+                        </mat-card-actions>
+                    </mat-card>
+                </div>
+                <ng-template #noRespuestas>
+                    <p>Aún no hay respuestas</p>
+                </ng-template>
+
+            </div>
+        </div>
+
+        <!-- <div class="col-md-6" > -->
+                <!-- <div class="mb-3" appearance="outline"> -->
+                    <!-- <div class="card-fondo-formulario-respuesta"> -->
+                        <div class="card-formulario-respuesta" *ngIf="form">
+                           <div class="card-titulo">
+                               <h1 class="fw-bold"> <mat-icon>rocket_launch</mat-icon> COMENTAR <mat-icon>rocket_launch</mat-icon></h1>
+                           </div>
+        
+                            <form [formGroup]="form" (ngSubmit)="createRespuesta()">
+                                <mat-form-field class="w-100" appearance="fill">
+                                    <mat-label for="mensajeRespuesta">Mensaje</mat-label>
+                                    <textarea  matInput id="mensajeRespuesta" type="text" formControlName="mensajeRespuesta" rows="8"></textarea>
+                                    <mat-error class="invalid-feedback d-block">
+                                        <ng-container *ngIf="controlHasError('mensajeRespuesta', 'required')">
+                                            El Mensaje es obligatorio
+                                        </ng-container>
+                                        <ng-container *ngIf="controlHasError('mensajeRespuesta','minlength')">
+                                            El Mensaje debe tener al menos 5 caracteres
+                                        </ng-container>
+                                        <ng-container *ngIf="controlHasError('mensajeRespuesta', 'maxlength')">
+                                            El Mensaje puede tener 5000 caracteres maximo
+                                        </ng-container>
+                                        <ng-container *ngIf="controlHasError('mensajeRespuesta', 'pattern')">
+                                            El Mensaje no puede tener caracteres especiales como:  + = ; :  '' " " < >
+                                        </ng-container>
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <div class="mt-1">
+                                    <button mat-button type="submit">
+                                        <mat-icon>chat</mat-icon> ENVIAR COMENTARIO
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    <!-- </div> -->
+             <!--    </div> -->
+        <!-- </div> -->
+
+    </div>
+</div>

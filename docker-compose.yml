@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  # Base de datos MySQL
+  mysql-db:
+    image: mysql:8.0
+    container_name: foro_vet_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: SOYELAMO
+      MYSQL_DATABASE: foro_veterinario
+      MYSQL_USER: foro_user
+      MYSQL_PASSWORD: SOYELAMO
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - foro-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+      interval: 30s
+
+  # Backend Spring Boot
+  backend:
+    build:
+      context: ./Spring/foro_veterinario_back
+      dockerfile: Dockerfile
+    container_name: foro_vet_backend
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql-db
+      DB_NAME: foro_veterinario
+      DB_USER: root
+      DB_PASSWORD: SOYELAMO
+      SPRING_PROFILES_ACTIVE: prod
+    ports:
+      - "8080:8080"
+    networks:
+      - foro-network
+    volumes:
+      - ./Spring/foro_veterinario_back/mediafile:/app/mediafile
+
+  # Frontend Angular
+  frontend:
+    build:
+      context: ./Angular/foro_veterinario_front
+      dockerfile: Dockerfile
+    container_name: foro_vet_frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - foro-network
+
+volumes:
+  mysql_data:
+
+networks:
+  foro-network:
+    driver: bridge

@@ -1,0 +1,41 @@
+<div class="banner">
+  <div class="overlay"></div>
+</div>
+
+<div class="text">
+  <h1 class="title bungee-title">🐾 VetForo</h1>
+<!--   <p class="subtitle"> La comunidad veterinaria donde estudiantes, profesionales y propietarios comparten conocimiento. </p>-->
+</div>
+
+<!-- Slider básico -->
+ <div class="slider-fondo">
+  <div class="swiper mySwiper ">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide" *ngFor="let tema of lastTemas">
+        <app-tema-card [tema]="tema"></app-tema-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-5">
+  <div class="contenerdor-titulo-home">
+    <h1 class="fw-bold bungee-title">🐾 Últimos Temas</h1>
+  </div>
+
+  <div class="text-end mb-5">
+    <button mat-raised-button  class="custom-button bungee-title" (click)="navigateToNewTema()" > <!--  routerLink="/tema/home/new" class="btn btn-primary"  -->
+        NUEVO TEMA
+    </button>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-5" *ngFor="let tema of lastTemas">
+
+    <app-tema-card [tema]="tema"></app-tema-card>
+    </div>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

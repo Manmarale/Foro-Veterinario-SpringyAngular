@@ -1,0 +1,102 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="custom-sidenav">
+    
+    <button mat-raised-button class="custom-button bungee-title mt-5" routerLink="/" (click)="sidenav.close()">
+      Inicio
+    </button>
+    <button mat-raised-button class="custom-button bungee-title mt-2" routerLink="/temas" (click)="sidenav.close()">
+      Temas
+    </button>
+    <button mat-raised-button class="custom-button bungee-title mt-2" routerLink="/mascotas" *ngIf="usuario" (click)="sidenav.close()">
+      🐾 Mis Mascotas
+    </button>
+    <button mat-raised-button class="custom-button bungee-title mt-2" routerLink="/admin/tema" *ngIf="usuario?.role === 'ADMIN'" (click)="sidenav.close()">
+      Administración
+    </button>
+    
+    <ng-container *ngIf="usuario; else authMobile">
+      <button mat-menu-item class="custom-button bungee-title mt-2"  (click)="logout(); sidenav.close()">
+        <mat-icon>logout</mat-icon> Cerrar Sesión
+      </button>
+    </ng-container>
+
+    <ng-template #authMobile>
+      <button mat-raised-button class="custom-button bungee-title" routerLink="/auth/login" (click)="sidenav.close()">
+        <mat-icon>login</mat-icon> Iniciar sesión
+      </button>
+      <button mat-raised-button class="custom-button bungee-title" routerLink="/auth/singup">
+        <mat-icon>person_add</mat-icon> Registrarme
+      </button>
+    </ng-template>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- === TOOLBAR PRINCIPAL === -->
+    <mat-toolbar class="custom-toolbar toolbar-responsive">
+      <a routerLink="/" class="toolbar-logo d-flex align-items-center">
+        <img class="img-logo" [src]="'logoBlu.png' | apiImg" [alt]="'logoBlu.png'" />
+      </a>
+
+      <!-- Menú horizontal (solo desktop) -->
+      <div class="menu-desktop">
+        <button mat-button routerLink="/" class="ms-3 toolbar-link">
+          <span class="bungee-title">Inicio</span>
+        </button>
+
+        <button mat-button routerLink="/temas" class="ms-3 toolbar-link">
+          <span class="bungee-title">Temas</span>
+        </button>
+
+        <button mat-button routerLink="/mascotas" class="ms-3 toolbar-link" *ngIf="usuario">
+          <span class="bungee-title">🐾 Mis Mascotas</span>
+        </button>
+
+        <button mat-button routerLink="/admin/tema" class="ms-3 toolbar-link" *ngIf="usuario?.role === 'ADMIN'" >
+          <span class="bungee-title">Administración</span>
+        </button>
+      </div>
+
+      <span class="spacer"></span>
+
+      <!-- Usuario o botones de auth -->
+      <ng-container *ngIf="usuario; else authButtons">
+        <div class="barra-img">
+          <div>
+              <img class="img-redonda" [src]="usuario.filePerfil | apiImg" [alt]="usuario.nombre" />
+          </div>
+          
+          <button mat-button [matMenuTriggerFor]="userMenu" class="user-desktop">
+            <span class="bungee-title">{{ usuario.nombre }}</span> 
+          </button>
+        </div>
+         
+        <mat-menu #userMenu>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon> Cerrar Sesión
+          </button>
+        </mat-menu>
+      </ng-container>
+
+      <ng-template #authButtons>
+        <div class="auth-desktop">
+          <div class="contenedor-buttons-layout">
+            <button mat-raised-button class="custom-button bungee-title" routerLink="/auth/login">
+              <mat-icon>login</mat-icon> Iniciar sesión
+            </button>
+            
+            <button mat-raised-button class="custom-button-2 bungee-title ms-2" routerLink="/auth/singup">
+              <mat-icon>person_add</mat-icon> Registrarme
+            </button>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- Botón hamburguesa (solo móvil, a la derecha) -->
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-button d-md-none">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

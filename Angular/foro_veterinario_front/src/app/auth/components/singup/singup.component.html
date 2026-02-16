@@ -1,0 +1,94 @@
+<div class="container py-5">
+    <h1 class="fw-bold text-center">🐾 Registro de usuario</h1>
+
+    <div class="row justify-content-center my-5">
+        <div class="col-md-6 col-lg-4">
+
+            <div class="mt-5 alert alert-danger" *ngIf="errors.length">
+                <ul>
+                    <li *ngFor="let error of errors"> {{ error }} </li>
+                </ul>
+            </div>
+
+            <form autocomplete="off" [formGroup]="form" (ngSubmit)="singup()" >
+                <mat-form-field class="mb-3 w-100" appearance="outline">
+                    <mat-label for="nombre">Nombre</mat-label>
+                    <input matInput id="nombre" type="text" placeholder="Nombres" formControlName="nombre">
+                    <mat-error class="invalid-feedback d-block">
+                        <ng-container *ngIf="controlHasError('nombre','required')">
+                            Nombre es obligatorio
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('nombre','minlength')">
+                            Nombre debe tener minimo 3 caracteres
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('nombre','maxlength')">
+                            Nombre puede tener maximo 45 caracteres
+                        </ng-container>
+                    </mat-error>
+                </mat-form-field>
+
+
+                <mat-form-field class="mb-3 w-100" appearance="outline">
+                    <mat-label for="email">Correo electrónico</mat-label>
+                    <input matInput id="email" type="text" placeholder="Correo electrónico" formControlName="email">
+                    <mat-error class="invalid-feedback d-block">
+                        <ng-container *ngIf="controlHasError('email', 'required')">
+                            EL Email es obligatorio
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('email', 'email')">
+                            EL Email debe tener un formato valido
+                        </ng-container>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mb-3 w-100" appearance="outline">
+                    <mat-label for="password">Contraseña</mat-label>
+                    <input matInput id="password"[type]="passwordVisible ? 'text' : 'password' " placeholder="Contraseña" formControlName="password">
+
+                    <mat-icon matSuffix  (click)="passwordVisible = !passwordVisible" >
+                            {{ passwordVisible ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+
+                    <mat-error class="invalid-feedback d-block">
+                        <ng-container *ngIf="controlHasError('password','required')">
+                            El Password es obligatorio
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('password','minlength')">
+                            El Password debe tener minimo 5 caracteres
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('password','pattern')">
+                            El Password no puede tener caracteres diferentes a:  a-z 0-9 - +
+                        </ng-container>
+                    </mat-error>
+                </mat-form-field>
+
+                <div class="mb-3 w-100">
+                    <mat-label for="filePerfil">Imagen Perfil (opcional)</mat-label>
+                    <input id="filePerfil" type="file" class="form-control" accept=".png, .jpg, .jpeg" (change)="uploadFile($event,'filePerfil')">
+                
+                    <div class="small text-muted" *ngIf="form.controls['filePerfil'].value ">
+                        Ruta actual: {{ form.controls['filePerfil'].value }}
+                    </div>
+                    <div class="small text-muted" *ngIf="!form.controls['filePerfil'].value">
+                        Se usará un avatar por defecto si no sube una foto
+                    </div>
+                </div>
+
+
+                <div class="text-end">
+                    <button class="custom-button w-100 mb-4" mat-raised-button color="primary">
+                        Registrarme
+                    </button>
+
+                    <div class="mt-3 text-center">
+                        ¿Ya tienes una cuenta?
+                        <a class="custom-a ms-2" routerLink="/auth/login">
+                            Inicia sesión
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

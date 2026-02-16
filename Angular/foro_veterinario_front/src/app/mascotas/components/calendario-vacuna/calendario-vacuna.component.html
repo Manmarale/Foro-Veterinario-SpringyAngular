@@ -1,0 +1,138 @@
+<div class="container py-5" *ngIf="mascota">
+  <div class="contenerdor-titulo-home mb-4">
+    <h1 class="fw-bold bungee-title">💉 Calendario de Vacunas — {{ mascota.nombre }}</h1>
+  </div>
+
+  <div class="text-end mb-4">
+    <button mat-stroked-button [routerLink]="['/mascotas', mascota.id]" class="me-2">← Volver al detalle</button>
+    <button mat-raised-button class="custom-button" (click)="toggleForm()">
+      {{ showForm ? 'Cancelar' : '➕ Agregar Vacuna' }}
+    </button>
+  </div>
+
+  <!-- Formulario nueva vacuna -->
+  <mat-card class="p-4 mb-4" *ngIf="showForm">
+    <h4 class="fw-bold mb-3">Nueva entrada en calendario</h4>
+    <form [formGroup]="form" (ngSubmit)="agregarVacuna()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Vacuna</mat-label>
+            <mat-select formControlName="vacunaId">
+              <mat-option *ngFor="let v of vacunasDisponibles" [value]="v.id">
+                {{ v.nombre }} ({{ v.especie }})
+              </mat-option>
+            </mat-select>
+            <mat-error>Seleccione una vacuna</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Fecha de aplicación</mat-label>
+            <input matInput type="date" formControlName="fechaAplicacion">
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Próxima dosis</mat-label>
+            <input matInput type="date" formControlName="fechaProxima">
+            <mat-error>La fecha de próxima dosis es obligatoria</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="col-md-6 mb-3 d-flex align-items-center">
+          <mat-checkbox formControlName="aplicada" color="primary">
+            ¿Ya fue aplicada?
+          </mat-checkbox>
+        </div>
+
+        <div class="col-12 mb-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Notas</mat-label>
+            <textarea matInput formControlName="notas" rows="2"
+                      placeholder="Observaciones sobre la vacuna..."></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="text-end">
+        <button mat-raised-button class="custom-button" type="submit" [disabled]="form.invalid">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <!-- Pendientes -->
+  <div *ngIf="getPendientes().length > 0" class="mb-4">
+    <h4 class="fw-bold" style="color: #e65100;">⏳ Vacunas Pendientes ({{ getPendientes().length }})</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead style="background-color: #fff3e0;">
+          <tr>
+            <th>Vacuna</th>
+            <th>Próxima dosis</th>
+            <th>Notas</th>
+            <th>Recordatorio</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cv of getPendientes()">
+            <td class="fw-bold">{{ cv.vacunaNombre }}</td>
+            <td>{{ cv.fechaProxima }}</td>
+            <td>{{ cv.notas || '—' }}</td>
+            <td>
+              <span class="badge" [ngClass]="cv.recordatorioEnviado ? 'bg-info' : 'bg-secondary'">
+                {{ cv.recordatorioEnviado ? '📧 Enviado' : 'No enviado' }}
+              </span>
+            </td>
+            <td>
+              <button mat-mini-fab color="primary" matTooltip="Marcar como aplicada" (click)="aplicarVacuna(cv)">
+                <mat-icon>check</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Aplicadas -->
+  <div *ngIf="getAplicadas().length > 0">
+    <h4 class="fw-bold" style="color: #2E8B57;">✅ Vacunas Aplicadas ({{ getAplicadas().length }})</h4>
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead style="background-color: #e8f5e9;">
+          <tr>
+            <th>Vacuna</th>
+            <th>Fecha aplicación</th>
+            <th>Próxima dosis</th>
+            <th>Veterinario</th>
+            <th>Notas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let cv of getAplicadas()">
+            <td class="fw-bold">{{ cv.vacunaNombre }}</td>
+            <td>{{ cv.fechaAplicacion }}</td>
+            <td>{{ cv.fechaProxima }}</td>
+            <td>{{ cv.veterinarioNombre || '—' }}</td>
+            <td>{{ cv.notas || '—' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sin vacunas -->
+  <div *ngIf="calendarioVacunas.length === 0" class="text-center py-5">
+    <h3>💉 Sin vacunas registradas</h3>
+    <p>Agrega la primera vacuna al calendario de {{ mascota.nombre }}</p>
+    <button mat-raised-button class="custom-button" (click)="toggleForm()">
+      Agregar Vacuna
+    </button>
+  </div>
+</div>

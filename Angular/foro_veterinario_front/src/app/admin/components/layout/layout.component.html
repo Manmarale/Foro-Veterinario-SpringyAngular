@@ -1,0 +1,97 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="custom-sidenav-adm">
+  
+    <button mat-raised-button class="custom-button-adm bungee-title mt-5" routerLink="/" (click)="sidenav.close()">
+        Inicio
+    </button>
+    <button mat-raised-button class="custom-button-adm bungee-title mt-2" routerLink="/admin/tema" (click)="sidenav.close()">
+        Adm. Temas
+    </button>
+    <button mat-raised-button class="custom-button-adm bungee-title mt-2" routerLink="/admin/usuarios" (click)="sidenav.close()">
+        Adm. Usuarios
+    </button>
+     <button mat-raised-button class="custom-button-adm bungee-title mt-2" routerLink="/admin/respuestas" (click)="sidenav.close()">
+        Adm. Respuestas
+    </button>
+    
+    <ng-container *ngIf="usuario;">
+      <button mat-menu-item class="custom-button-adm bungee-title" (click)="logout(); sidenav.close()">
+        <mat-icon>logout</mat-icon> Cerrar Sesión
+      </button>
+    </ng-container>
+
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <!-- TOOLBAR PRINCIPAL  -->
+    <mat-toolbar class="custom-toolbar-adm toolbar-responsive">
+      <a routerLink="/" class="toolbar-logo d-flex align-items-center">
+        <img class="img-logo" [src]="'logoBlu.png' | apiImg" [alt]="'logoBlu.png'" />
+      </a>
+
+      <!-- Menú horizontal  -->
+      <div class="menu-desktop">
+        <button mat-button routerLink="/" class="ms-3 toolbar-link">
+          <span class="bungee-title">Inicio</span>
+        </button>
+
+        <button mat-button routerLink="/admin/tema" class="ms-3 toolbar-link">
+          <span class="bungee-title"> Temas</span>
+        </button>
+
+        <button mat-button routerLink="/admin/usuarios" class="ms-3 toolbar-link">
+            <span class="bungee-title"> Usuarios </span>
+        </button>
+
+        <button mat-button routerLink="/admin/respuestas" class="ms-3 toolbar-link">
+            <span class="bungee-title"> Respuestas</span>
+        </button>
+      </div>
+
+      <span class="spacer"></span>
+
+      <!-- Usuario login auth -->
+      <ng-container *ngIf="usuario; else authButtons">
+        <div class="barra-img">
+          <div>
+              <img class="img-redonda" [src]="usuario.filePerfil | apiImg" [alt]="usuario.nombre" />
+          </div>
+          
+          <button mat-button [matMenuTriggerFor]="userMenu" class="user-desktop">
+            <span class="bungee-title">{{ usuario.nombre }}</span> 
+          </button>
+        </div>
+         
+
+        <mat-menu #userMenu>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon> Cerrar Sesión
+          </button>
+        </mat-menu>
+      </ng-container>
+
+      <ng-template #authButtons>
+        <div class="auth-desktop">
+          <button mat-raised-button class="custom-button ms-2" routerLink="/auth/login">
+            <mat-icon>login</mat-icon> Iniciar sesión
+          </button>
+          
+          <button mat-raised-button class="custom-button-2 ms-2" routerLink="/auth/singup">
+            <mat-icon>person_add</mat-icon> Registrarme
+          </button>
+        </div>
+      </ng-template>
+
+      <!-- Botón hamburguesa  -->
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-button d-md-none">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+  
+
+

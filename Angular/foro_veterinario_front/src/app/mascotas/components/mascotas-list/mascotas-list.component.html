@@ -1,0 +1,57 @@
+<div class="container py-5">
+  <div class="contenerdor-titulo-home mb-4">
+    <h1 class="fw-bold bungee-title">🐾 Mis Mascotas</h1>
+  </div>
+
+  <div class="text-end mb-4">
+    <button mat-raised-button class="custom-button bungee-title" routerLink="/mascotas/nueva">
+      <mat-icon>add</mat-icon> NUEVA MASCOTA
+    </button>
+  </div>
+
+  <div class="row" *ngIf="mascotas.length; else sinMascotas">
+    <div class="col-md-4 mb-4" *ngFor="let mascota of mascotas">
+      <mat-card class="hover-shadow">
+        <div class="mat-card-header">
+          <div class="category-box">{{ mascota.especie }}</div>
+          <div class="avatar-img">
+            <img class="img-redonda" [src]="mascota.foto! | apiImg" [alt]="mascota.nombre">
+          </div>
+          <div class="text-container">
+            <mat-card-title>
+              <a [routerLink]="['/mascotas', mascota.id]"> {{ mascota.nombre }}</a>
+            </mat-card-title>
+            <mat-card-subtitle>{{ mascota.raza }} · {{ mascota.sexo }}</mat-card-subtitle>
+          </div>
+        </div>
+
+        <mat-card-content>
+          <p *ngIf="mascota.observaciones">{{ mascota.observaciones | slice: 0: 60 }}...</p>
+          <p *ngIf="mascota.pesoKg"><strong>Peso:</strong> {{ mascota.pesoKg }} kg</p>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button mat-button [routerLink]="['/mascotas', mascota.id, 'calendario']">
+            <mat-icon>event</mat-icon> VACUNAS
+          </button>
+          <button mat-button [routerLink]="['/mascotas/editar', mascota.id]">
+            <mat-icon>edit</mat-icon> EDITAR
+          </button>
+          <button mat-button color="warn" (click)="deleteMascota(mascota)">
+            <mat-icon>delete</mat-icon> ELIMINAR
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <ng-template #sinMascotas>
+    <div class="text-center py-5">
+      <h3>🐕 Aún no tienes mascotas registradas</h3>
+      <p>Registra tu primera mascota para empezar a gestionar su salud</p>
+      <button mat-raised-button class="custom-button" routerLink="/mascotas/nueva">
+        Registrar Mascota
+      </button>
+    </div>
+  </ng-template>
+</div>

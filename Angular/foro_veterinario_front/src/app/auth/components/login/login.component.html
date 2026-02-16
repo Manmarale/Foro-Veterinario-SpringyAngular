@@ -1,0 +1,59 @@
+<div class="container py-5">
+    <h1 class="fw-bold text-center">Inicio de sesión</h1>
+
+    <div class="row justify-content-center my-5">
+        <div class="col-md-6 col-lg-4">
+
+            <div class="mt-5 alert alert-danger" *ngIf="errors.length">
+                <ul>
+                    <li *ngFor="let error of errors"> {{ error }} </li>
+                </ul>
+            </div>
+            <form autocomplete="off" [formGroup]="form" (ngSubmit)="login()" >
+
+            <!-- <form autocomplete="off" #form="ngForm" (ngSubmit)="login(form)"> -->
+                <mat-form-field class="mb-3 w-100" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput id="email" type="text" placeholder="Correo electrónico" formControlName="email">
+                    <mat-error class="invalid-feedback d-block">
+                        <ng-container *ngIf="controlHasError('email', 'required')">
+                            EL Email es obligatorio
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('email', 'email')">
+                            EL Email debe tener un formato valido
+                        </ng-container>
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="mb-5 w-100" appearance="outline">
+                    <mat-label>Contraseña</mat-label>
+                    <input matInput id="password"[type]="passwordVisible ? 'text' : 'password' " placeholder="Contraseña" formControlName="password">
+
+                    <mat-icon matSuffix  (click)="passwordVisible = !passwordVisible" >
+                            {{ passwordVisible ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+
+                     <mat-error class="invalid-feedback d-block">
+                        <ng-container *ngIf="controlHasError('password','required')">
+                            El Password es obligatorio
+                        </ng-container>
+                        <ng-container *ngIf="controlHasError('password','minlength')">
+                            El Password debe tener minimo 5 caracteres
+                        </ng-container>
+                    </mat-error>
+                </mat-form-field >
+
+                <button mat-raised-button class="custom-button w-100">
+                    Ingresar
+                </button>
+
+                <div class="mt-3 text-center">
+                    Aún no tienes una cuenta?
+                    <a class="custom-a ms-2" routerLink="/auth/singup">
+                        Regístrate aquí
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
