@@ -36,7 +36,7 @@ sudo docker logs foro_vet_mysql
 
 - **Database**: foro_veterinario
 - **DB User**: root
-- **DB Password**: SOYELAMO
+- **DB Password**: ""
 
 ## Estructura del Proyecto
 
