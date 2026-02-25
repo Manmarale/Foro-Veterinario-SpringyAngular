@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './auth/helpers/auth.guard';
+import { autenticacionGuard } from './auth/helpers/autenticacion.guard';
 
 const routes: Routes = [
 
@@ -12,7 +13,7 @@ const routes: Routes = [
   {
     path: 'mascotas',
     loadChildren: () => import('./mascotas/mascotas.module').then(m => m.MascotasModule),
-    canActivate: [authGuard]
+    canActivate: [autenticacionGuard]
   },
   {
     path: '',

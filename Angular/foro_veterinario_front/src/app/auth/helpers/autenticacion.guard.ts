@@ -12,8 +12,7 @@ export const autenticacionGuard: CanActivateFn = (route, state) => {
     return true;
   }
 
-  alert('Necesitas estar registrado para editar');
-  router.navigate(['/auth/login']);
+  router.navigate(['/auth/login'], { queryParams: { returnUrl: state.url } });
   return false;
 
   

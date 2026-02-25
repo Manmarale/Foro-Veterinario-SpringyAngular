@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SolicitudAutenticacion, Profile } from '../../interfaces/auth.interfaces';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -15,18 +15,22 @@ export class LoginComponent {
   solicitudAutenticacion : SolicitudAutenticacion = {};
   errors: string [] = [];
   passwordVisible = false;
+  private returnUrl: string;
 
   form:FormGroup = this.fb.group({
       email: [, [Validators.required, Validators.email]],
-      password: [,[Validators.required, Validators.minLength(4)]]
+      password: [,[Validators.required, Validators.minLength(5)]],
     });
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
     private authService: AuthService,
     private snackBar: MatSnackBar
-  ){}
+  ){
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '';
+  }
 
   controlHasError(control:string, error: string){
     return this.form.controls[control].hasError(error);
@@ -43,7 +47,7 @@ export class LoginComponent {
     .subscribe({
       next: profile =>{
         this.alertaSwal("success", `Bienvenido ${profile.nombre}`);
-        this.router.navigate(['']);
+        this.router.navigateByUrl(this.returnUrl || '');
       },
       
       error: err => {

@@ -22,7 +22,7 @@ export class SingupComponent {
   form:FormGroup = this.fb.group({
     nombre: [, [ Validators.required]],
     email: [, [Validators.required, Validators.email]],
-    password: [,[Validators.required, Validators.minLength(4)]],
+    password: [,[Validators.required, Validators.minLength(5), Validators.pattern('[a-z0-9-]+')]],
     filePerfil:[null] 
   })
 

@@ -40,7 +40,7 @@ public class SeguridadWebConfiguracion {
                                  .permitAll()
                  )
                  .sessionManagement(h->h.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                 .apply(configuracionJWT);
+                 .with(configuracionJWT, Customizer.withDefaults());
 
          return http.build();
      }

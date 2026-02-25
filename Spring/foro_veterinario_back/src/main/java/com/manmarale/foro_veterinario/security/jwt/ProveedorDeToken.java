@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import java.security.Key;
+import javax.crypto.SecretKey;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class ProveedorDeToken implements iProveedorDeToken {
-    private final Key key;
+    private final SecretKey key;
     private final JwtParser jwtParser;
     private final long tokenValidacionEnMiliSegundos;
     private static final String CLAVE_AUTORIDAD = "auth";
@@ -26,7 +26,7 @@ public class ProveedorDeToken implements iProveedorDeToken {
         byte[] keyBytes = Decoders.BASE64URL.decode(jwtSecreto);
 
         key = Keys.hmacShaKeyFor(keyBytes);
-        jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
+        jwtParser = Jwts.parser().verifyWith(key).build();
         tokenValidacionEnMiliSegundos = jwtValidacionEnSegundos * 1000;
     }
 
@@ -44,17 +44,17 @@ public class ProveedorDeToken implements iProveedorDeToken {
 
         return Jwts
                 .builder()
-                .setSubject(autenticacion.getName())
+                .subject(autenticacion.getName())
                 .claim(CLAVE_AUTORIDAD, role)
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validez)
+                .signWith(key, Jwts.SIG.HS512)
+                .expiration(validez)
                 .compact();
     }
 
     // Método para obtener la autenticación a partir de un token JWT
     @Override
     public Authentication obtenerAuthenticacion(String token) {
-        Claims claims = jwtParser.parseClaimsJws(token).getBody();
+        Claims claims = jwtParser.parseSignedClaims(token).getPayload();
 
         Collection<? extends GrantedAuthority> authorities = Arrays
                 .stream(claims.get(CLAVE_AUTORIDAD).toString().split(","))
@@ -70,7 +70,7 @@ public class ProveedorDeToken implements iProveedorDeToken {
     @Override
     public boolean validacionToken(String token) {
         try {
-            jwtParser.parseClaimsJws(token);
+            jwtParser.parseSignedClaims(token);
             return true;
         }catch (JwtException e){
             log.error("Token validation error {}", e.getMessage());
