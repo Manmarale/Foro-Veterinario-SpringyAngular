@@ -1,12 +1,12 @@
 <div class="container py-5" *ngIf="mascota">
   <div class="contenerdor-titulo-home mb-4">
-    <h1 class="fw-bold bungee-title">💉 Calendario de Vacunas — {{ mascota.nombre }}</h1>
+    <h1 class="fw-bold bungee-title">Calendario de Vacunas — {{ mascota.nombre }}</h1>
   </div>
 
   <div class="text-end mb-4">
     <button mat-stroked-button [routerLink]="['/mascotas', mascota.id]" class="me-2">← Volver al detalle</button>
     <button mat-raised-button class="custom-button" (click)="toggleForm()">
-      {{ showForm ? 'Cancelar' : '➕ Agregar Vacuna' }}
+      {{ showForm ? 'Cancelar' : 'Agregar Vacuna' }}
     </button>
   </div>
 
@@ -67,7 +67,7 @@
 
   <!-- Pendientes -->
   <div *ngIf="getPendientes().length > 0" class="mb-4">
-    <h4 class="fw-bold" style="color: #e65100;">⏳ Vacunas Pendientes ({{ getPendientes().length }})</h4>
+    <h4 class="fw-bold" style="color: #e65100;">Vacunas Pendientes ({{ getPendientes().length }})</h4>
     <div class="table-responsive">
       <table class="table table-hover">
         <thead style="background-color: #fff3e0;">
@@ -86,7 +86,7 @@
             <td>{{ cv.notas || '—' }}</td>
             <td>
               <span class="badge" [ngClass]="cv.recordatorioEnviado ? 'bg-info' : 'bg-secondary'">
-                {{ cv.recordatorioEnviado ? '📧 Enviado' : 'No enviado' }}
+                {{ cv.recordatorioEnviado ? 'Enviado' : 'No enviado' }}
               </span>
             </td>
             <td>
@@ -102,7 +102,7 @@
 
   <!-- Aplicadas -->
   <div *ngIf="getAplicadas().length > 0">
-    <h4 class="fw-bold" style="color: #2E8B57;">✅ Vacunas Aplicadas ({{ getAplicadas().length }})</h4>
+    <h4 class="fw-bold" style="color: #2E8B57;">Vacunas Aplicadas ({{ getAplicadas().length }})</h4>
     <div class="table-responsive">
       <table class="table table-hover">
         <thead style="background-color: #e8f5e9;">
@@ -129,7 +129,7 @@
 
   <!-- Sin vacunas -->
   <div *ngIf="calendarioVacunas.length === 0" class="text-center py-5">
-    <h3>💉 Sin vacunas registradas</h3>
+    <h3>Sin vacunas registradas</h3>
     <p>Agrega la primera vacuna al calendario de {{ mascota.nombre }}</p>
     <button mat-raised-button class="custom-button" (click)="toggleForm()">
       Agregar Vacuna

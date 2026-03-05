@@ -1,6 +1,6 @@
 <div class="container py-5" *ngIf="mascota">
   <div class="contenerdor-titulo-home mb-4">
-    <h1 class="fw-bold bungee-title">🐾 {{ mascota.nombre }}</h1>
+    <h1 class="fw-bold bungee-title">{{ mascota.nombre }}</h1>
   </div>
 
   <mat-card class="p-4">
@@ -10,7 +10,7 @@
         <img *ngIf="mascota.foto" [src]="mascota.foto | apiImg" [alt]="mascota.nombre"
              class="img-fluid rounded" style="max-height: 300px; object-fit: cover;">
         <div *ngIf="!mascota.foto" class="p-5 bg-light rounded text-center">
-          <span style="font-size: 5rem;">🐾</span>
+          <span style="font-size: 5rem;">Sin foto</span>
           <p class="mt-2 text-muted">Sin foto</p>
         </div>
       </div>
@@ -20,31 +20,31 @@
         <table class="table table-borderless">
           <tbody>
             <tr>
-              <td class="fw-bold" style="width: 180px;">🏷️ Especie</td>
+              <td class="fw-bold" style="width: 180px;">Especie</td>
               <td>{{ mascota.especie }}</td>
             </tr>
             <tr>
-              <td class="fw-bold">🐕 Raza</td>
+              <td class="fw-bold">Raza</td>
               <td>{{ mascota.raza || 'No especificada' }}</td>
             </tr>
             <tr>
-              <td class="fw-bold">⚧️ Sexo</td>
+              <td class="fw-bold">Sexo</td>
               <td>{{ mascota.sexo }}</td>
             </tr>
             <tr>
-              <td class="fw-bold">🎂 Edad</td>
+              <td class="fw-bold">Edad</td>
               <td>{{ getEdad() }}</td>
             </tr>
             <tr *ngIf="mascota.pesoKg">
-              <td class="fw-bold">⚖️ Peso</td>
+              <td class="fw-bold">Peso</td>
               <td>{{ mascota.pesoKg }} kg</td>
             </tr>
             <tr>
-              <td class="fw-bold">👤 Propietario</td>
+              <td class="fw-bold">Propietario</td>
               <td>{{ mascota.propietarioNombre }}</td>
             </tr>
             <tr *ngIf="mascota.observaciones">
-              <td class="fw-bold">📝 Observaciones</td>
+              <td class="fw-bold">Observaciones</td>
               <td>{{ mascota.observaciones }}</td>
             </tr>
           </tbody>
@@ -54,7 +54,7 @@
 
     <!-- Resumen vacunas -->
     <div class="mt-4 p-3 rounded" style="background-color: #e8f5e9;">
-      <h4 class="fw-bold mb-3">💉 Calendario de Vacunas</h4>
+      <h4 class="fw-bold mb-3">Calendario de Vacunas</h4>
       <p *ngIf="calendarioVacunas.length === 0">No hay vacunas registradas aún.</p>
       <div *ngIf="calendarioVacunas.length > 0">
         <p><strong>Total:</strong> {{ calendarioVacunas.length }} vacunas · 
@@ -75,7 +75,7 @@
               <td>{{ cv.fechaProxima }}</td>
               <td>
                 <span class="badge" [ngClass]="cv.aplicada ? 'bg-success' : 'bg-warning text-dark'">
-                  {{ cv.aplicada ? '✅ Aplicada' : '⏳ Pendiente' }}
+                  {{ cv.aplicada ? 'Aplicada' : 'Pendiente' }}
                 </span>
               </td>
             </tr>
@@ -88,13 +88,13 @@
     <div class="text-end mt-4">
       <button mat-stroked-button routerLink="/mascotas" class="me-2">← Volver</button>
       <button mat-raised-button class="custom-button me-2" [routerLink]="['/mascotas', mascota.id, 'calendario']">
-        💉 Gestionar Vacunas
+        Gestionar Vacunas
       </button>
       <button mat-raised-button color="primary" [routerLink]="['/mascotas/editar', mascota.id]" class="me-2">
-        ✏️ Editar
+        Editar
       </button>
       <button mat-raised-button color="warn" (click)="deleteMascota()">
-        🗑️ Eliminar
+        Eliminar
       </button>
     </div>
   </mat-card>

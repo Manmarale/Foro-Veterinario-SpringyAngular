@@ -42,7 +42,7 @@ services:
     networks:
       - foro-network
     volumes:
-      - ./Spring/foro_veterinario_back/mediafile:/app/mediafile
+      - ./Spring/foro_veterinario_back/mediafile:/app/mediafile:z
 
   # Frontend Angular
   frontend:
