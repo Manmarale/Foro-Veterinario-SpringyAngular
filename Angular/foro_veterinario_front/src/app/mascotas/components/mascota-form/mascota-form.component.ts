@@ -83,7 +83,7 @@ export class MascotaFormComponent implements OnInit {
       formData.append('file', this.selectedFile);
       this.mascotaService.uploadFile(formData).subscribe({
         next: (res: any) => {
-          mascota.foto = res.fileName || res.file;
+          mascota.foto = res.path;
           this.saveToApi(mascota);
         },
         error: () => {
@@ -116,7 +116,7 @@ export class MascotaFormComponent implements OnInit {
       this.mascotaService.create(mascota).subscribe({
         next: () => {
           Swal.fire({
-            title: '¡Mascota registrada! 🐾',
+            title: '¡Mascota registrada!',
             text: 'Tu mascota fue registrada exitosamente.',
             icon: 'success',
             timer: 2000,

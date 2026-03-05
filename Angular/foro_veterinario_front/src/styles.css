@@ -176,7 +176,7 @@ body {
 
 
 .banner {
-    background: url('./assets/banner.jpeg') center no-repeat;
+    background: url('./assets/banner.png') center no-repeat;
     min-height: 500px;
     background-size: cover; /* Ajusta la imagen para que cubra todo el ancho y alto del contenedor */
     position: relative;
@@ -213,7 +213,8 @@ body {
 }
 
 .bungee-title {
-  font-family: 'Bungee', cursive;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-weight: 700;
 }
 
 /* LAYOUT HOME */

@@ -1,7 +1,7 @@
 <div class="container py-5">
   <div class="contenerdor-titulo-home mb-4">
     <h1 class="fw-bold bungee-title">
-      {{ editMode ? '✏️ Editar Mascota' : '🐾 Nueva Mascota' }}
+      {{ editMode ? 'Editar Mascota' : 'Nueva Mascota' }}
     </h1>
   </div>
 
@@ -75,7 +75,7 @@
 
         <!-- Foto -->
         <div class="col-12 mb-3">
-          <label class="form-label fw-bold">📷 Foto de la mascota (opcional)</label>
+          <label class="form-label fw-bold">Foto de la mascota (opcional)</label>
           <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*">
         </div>
 

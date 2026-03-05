@@ -8,7 +8,7 @@
       Temas
     </button>
     <button mat-raised-button class="custom-button bungee-title mt-2" routerLink="/mascotas" *ngIf="usuario" (click)="sidenav.close()">
-      🐾 Mis Mascotas
+      Mis Mascotas
     </button>
     <button mat-raised-button class="custom-button bungee-title mt-2" routerLink="/admin/tema" *ngIf="usuario?.role === 'ADMIN'" (click)="sidenav.close()">
       Administración
@@ -34,7 +34,7 @@
     <!-- === TOOLBAR PRINCIPAL === -->
     <mat-toolbar class="custom-toolbar toolbar-responsive">
       <a routerLink="/" class="toolbar-logo d-flex align-items-center">
-        <img class="img-logo" [src]="'logoBlu.png' | apiImg" [alt]="'logoBlu.png'" />
+        <img class="img-logo" [src]="'logo.png' | apiImg" [alt]="'logo.png'" />
       </a>
 
       <!-- Menú horizontal (solo desktop) -->
@@ -48,7 +48,7 @@
         </button>
 
         <button mat-button routerLink="/mascotas" class="ms-3 toolbar-link" *ngIf="usuario">
-          <span class="bungee-title">🐾 Mis Mascotas</span>
+          <span class="bungee-title">Mis Mascotas</span>
         </button>
 
         <button mat-button routerLink="/admin/tema" class="ms-3 toolbar-link" *ngIf="usuario?.role === 'ADMIN'" >

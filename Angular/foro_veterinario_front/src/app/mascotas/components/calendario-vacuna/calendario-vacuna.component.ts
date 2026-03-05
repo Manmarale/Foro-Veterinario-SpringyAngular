@@ -86,7 +86,7 @@ export class CalendarioVacunaComponent implements OnInit {
     this.mascotaService.createCalendarioVacuna(calendario).subscribe({
       next: () => {
         Swal.fire({
-          title: '¡Vacuna agregada! 💉',
+          title: '¡Vacuna agregada!',
           icon: 'success',
           timer: 1500,
           showConfirmButton: false
@@ -119,7 +119,7 @@ export class CalendarioVacunaComponent implements OnInit {
         };
         this.mascotaService.aplicarVacuna(cv.id, updated).subscribe({
           next: () => {
-            Swal.fire({ title: '✅ Vacuna aplicada', icon: 'success', timer: 1500, showConfirmButton: false });
+            Swal.fire({ title: 'Vacuna aplicada', icon: 'success', timer: 1500, showConfirmButton: false });
             this.loadCalendario(this.mascota.id);
           },
           error: () => Swal.fire('Error', 'No se pudo actualizar', 'error')
