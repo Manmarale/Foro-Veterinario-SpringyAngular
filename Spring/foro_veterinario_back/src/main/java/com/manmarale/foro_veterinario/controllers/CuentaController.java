@@ -5,6 +5,7 @@ import com.manmarale.foro_veterinario.models.dtos.Role;
 import com.manmarale.foro_veterinario.models.dtos.autenticacion.PerfilUsuarioDTO;
 import com.manmarale.foro_veterinario.models.dtos.usuario.UsuarioRegistroDTO;
 import com.manmarale.foro_veterinario.repository.iUsuarioRepository;
+import com.manmarale.foro_veterinario.services.EmailService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +23,7 @@ public class CuentaController {
 
     private final iUsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     @PostMapping(value = "/registro")
     public PerfilUsuarioDTO registro(@RequestBody @Validated UsuarioRegistroDTO usuarioRegistroDTO){
@@ -42,6 +44,9 @@ public class CuentaController {
         }
 
         usuarioRepository.save(usuario);
+
+    // Enviar bienvenida por correo sin bloquear el registro ante fallos SMTP
+    emailService.enviarBienvenida(usuario.getEmail(), usuario.getNombre());
 //        usuario.setFilePerfil(usuarioRegistroDTO.getFilePerfil());
 //        usuario.setNombre(usuarioRegistroDTO.getNombre());
 //        usuario.setEmail(usuarioRegistroDTO.getEmail());

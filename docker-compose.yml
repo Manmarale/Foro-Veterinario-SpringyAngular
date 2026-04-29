@@ -22,6 +22,16 @@ services:
       retries: 10
       interval: 30s
 
+  # SMTP de pruebas para desarrollo
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: foro_vet_mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      - foro-network
+
   # Backend Spring Boot
   backend:
     build:
@@ -31,12 +41,21 @@ services:
     depends_on:
       mysql-db:
         condition: service_healthy
+      mailhog:
+        condition: service_started
     environment:
       DB_HOST: mysql-db
       DB_NAME: foro_veterinario
       DB_USER: root
       DB_PASSWORD: SOYELAMO
       SPRING_PROFILES_ACTIVE: prod
+      MAIL_HOST: mailhog
+      MAIL_PORT: 1025
+      MAIL_USERNAME: no-reply@vetforo.local
+      MAIL_PASSWORD: ""
+      MAIL_SMTP_AUTH: "false"
+      MAIL_SMTP_STARTTLS_ENABLE: "false"
+      MAIL_SMTP_STARTTLS_REQUIRED: "false"
     ports:
       - "8080:8080"
     networks:
