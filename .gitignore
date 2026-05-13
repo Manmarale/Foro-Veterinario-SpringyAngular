@@ -25,3 +25,6 @@ Angular/foro_veterinario_front/.angular/
 
 # ==== Media ====
 Spring/foro_veterinario_back/mediafile/
+
+# ==== Docs locales no versionadas ====
+GUIA_TECNICA_DAM_FORO_VETERINARIO.md
